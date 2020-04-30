@@ -55,5 +55,22 @@ namespace BankDB.Views
                 Console.WriteLine("Account creation failed.");
             }
         }
+
+        public void ReadAll(Bank bank)
+        {
+            var accounts = _accountService.Read(bank);
+
+            if (accounts != null)
+            {
+                Console.WriteLine("IBAN\t\t\tName\t\tCustomer ID\tBalance");
+                foreach (Account account in accounts)
+                {
+                    Console.WriteLine($"{account.Iban}\t{account.Name}\t\t{account.CustomerId}\t{account.Balance}");
+                }
+            } else
+            {
+                Console.WriteLine("No accounts found.");
+            }
+        }
     }
 }

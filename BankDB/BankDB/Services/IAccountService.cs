@@ -8,5 +8,6 @@ namespace BankDB.Services
     public interface IAccountService
     {
         Account Create(Account newAccount);
+        List<Account> Read(Bank bank);
     }
 }

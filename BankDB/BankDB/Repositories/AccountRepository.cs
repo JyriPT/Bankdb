@@ -1,7 +1,9 @@
 ﻿using BankDB.Data;
 using BankDB.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BankDB.Repositories
@@ -28,6 +30,15 @@ namespace BankDB.Repositories
                 Console.WriteLine(exception.Message);
                 return null;
             }
+        }
+
+        public List<Account> Read(Bank bank)
+        {
+            var accounts = _context
+                .Account
+                .Include(p => p.Bank)
+                .ToList();
+            return accounts;
         }
     }
 }

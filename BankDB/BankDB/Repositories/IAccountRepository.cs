@@ -8,5 +8,6 @@ namespace BankDB.Repositories
     public interface IAccountRepository
     {
         Account Create(Account newAccount);
+        List<Account> Read(Bank bank);
     }
 }

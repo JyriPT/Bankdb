@@ -20,5 +20,11 @@ namespace BankDB.Services
             var createdAccount = _accountRepository.Create(newAccount);
             return createdAccount;
         }
+
+        public List<Account> Read(Bank bank)
+        {
+            var accounts = _accountRepository.Read(bank);
+            return accounts;
+        }
     }
 }

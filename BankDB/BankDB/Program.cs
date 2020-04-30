@@ -34,6 +34,11 @@ namespace BankDB
                         msg = "Press enter to return to start.";
                         break;
 
+                    case "BANKACCOUNTS":
+                        BankAccounts();
+                        msg = "Press enter to return to start.";
+                        break;
+
                     case "X":
                         msg = "Shutting down...";
                         break;
@@ -57,7 +62,7 @@ namespace BankDB
             Console.WriteLine("Bank app");
             Console.WriteLine("[Bank] Create/Update/Delete Bank");
             Console.WriteLine("[NewCustomer] Create a new customer with associated bank account");
-            Console.WriteLine("[U] Päivitä henkilön tiedot");
+            Console.WriteLine("[BankAccounts] List all accounts associated with a specific bank");
             Console.WriteLine("[D] Poista henkilö tietokannasta");
             Console.WriteLine("[R1] Etsi henkilö Id:n persuteella");
             Console.WriteLine("[X] Quit program");
@@ -119,6 +124,13 @@ namespace BankDB
             {
                 Console.WriteLine("Bank not found, please try again.");
             }
+        }
+
+        static void BankAccounts()
+        {
+            Bank bank = _bankView.ReadBank();
+
+            _accountView.ReadAll(bank);
         }
     }
 }
