@@ -32,8 +32,8 @@ namespace BankDB.Views
 
             newBank.Bic = input;
 
-            var createdPerson = _bankService.Create(newBank);
-            Console.WriteLine(newBank.Name);
+            var createdBank = _bankService.Create(newBank);
+            Console.WriteLine(createdBank.Name);
         }
 
         public void DeleteBank()
@@ -44,6 +44,20 @@ namespace BankDB.Views
             int id = int.Parse(userInput);
 
             _bankService.Delete(id);
+        }
+
+        public Bank ReadBank()
+        {
+            Console.WriteLine("Enter id of wanted bank:");
+
+            if (int.TryParse(Console.ReadLine(), out int id) == true)
+            {
+                var bank = _bankService.Read(id);
+                return bank;
+            }
+
+            Console.WriteLine("Bank not found, try again.");
+            return null;
         }
 
         public void UpdateBank()

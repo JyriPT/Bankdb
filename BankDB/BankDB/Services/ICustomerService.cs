@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BankDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BankDB.Services
 {
-    class ICustomerService
+    public interface ICustomerService
     {
+        Customer Create(Customer newCustomer);
     }
 }

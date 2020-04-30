@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BankDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BankDB.Views
 {
-    class IAccountView
+    public interface IAccountView
     {
+        void CreateAccount(Customer customer);
     }
 }

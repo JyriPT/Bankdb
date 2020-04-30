@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BankDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BankDB.Repositories
 {
-    class IAccountRepository
+    public interface IAccountRepository
     {
+        Account Create(Account newAccount);
     }
 }

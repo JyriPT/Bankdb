@@ -1,5 +1,6 @@
 ﻿using System;
 using BankDB.Data;
+using BankDB.Models;
 using BankDB.Views;
 
 namespace BankDB
@@ -8,6 +9,8 @@ namespace BankDB
     {
         static private readonly BankdbContext context = new BankdbContext();
         static private readonly IBankView _bankView = new BankView();
+        static private readonly ICustomerView _customerView = new CustomerView();
+        static private readonly IAccountView _accountView = new AccountView();
 
         static void Main(string[] args)
         {
@@ -23,6 +26,11 @@ namespace BankDB
                 {
                     case "BANK":
                         BankSelection();
+                        msg = "Press enter to return to start.";
+                        break;
+
+                    case "NEWCUSTOMER":
+                        CustomerCreation();
                         msg = "Press enter to return to start.";
                         break;
 
@@ -46,15 +54,15 @@ namespace BankDB
 
         static string UserInterface()
         {
-            Console.WriteLine("Tietokannan käsittely esimerkki!");
-            Console.WriteLine("[BANK] Create/Update/Delete Bank");
-            Console.WriteLine("[R] Lue kaiki tietokannan tiedot");
+            Console.WriteLine("Bank app");
+            Console.WriteLine("[Bank] Create/Update/Delete Bank");
+            Console.WriteLine("[NewCustomer] Create a new customer with associated bank account");
             Console.WriteLine("[U] Päivitä henkilön tiedot");
             Console.WriteLine("[D] Poista henkilö tietokannasta");
             Console.WriteLine("[R1] Etsi henkilö Id:n persuteella");
             Console.WriteLine("[X] Quit program");
             Console.WriteLine();
-            Console.Write("Valitse mitä tehdään: ");
+            Console.Write("Select operation: ");
 
             return Console.ReadLine();
         }
@@ -88,17 +96,29 @@ namespace BankDB
                         break;
 
                     case "X":
-                        Console.WriteLine("Returning to main menu, press enter.");
+                        Console.WriteLine("Returning to main menu.");
                         break;
 
                     default:
-                        Console.WriteLine("Invalid selection, please try again. [SELECTION]");
+                        Console.WriteLine("Invalid selection, please try again.");
                         break;
                 }
             } while (select.ToUpper() != "X");
         }
 
+        static void CustomerCreation()
+        {
+            Bank bank = _bankView.ReadBank();
 
-        
+            if (bank != null)
+            {
+                Customer customer = _customerView.CreateCustomer(bank);
+
+                _accountView.CreateAccount(customer);
+            } else
+            {
+                Console.WriteLine("Bank not found, please try again.");
+            }
+        }
     }
 }
